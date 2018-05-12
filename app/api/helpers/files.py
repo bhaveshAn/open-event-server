@@ -1,7 +1,6 @@
 import os
-import cStringIO
+from io import StringIO
 import urllib
-import urlparse
 import uuid
 
 import PIL
@@ -73,7 +72,7 @@ def create_save_resized_image(image_file, basewidth=None, maintain_aspect=None, 
     :return:
     """
     filename = '{filename}.{ext}'.format(filename=get_file_name(), ext=ext)
-    image_file = cStringIO.StringIO(urllib.urlopen(image_file).read())
+    image_file = StringIO.StringIO(urllib.urlopen(image_file).read())
     try:
         im = Image.open(image_file)
     except IOError:
@@ -173,13 +172,13 @@ def make_frontend_url(path, parameters=None):
     Create URL for frontend
     """
     settings = get_settings()
-    frontend_url = urlparse.urlparse(settings['frontend_url'] if settings['frontend_url'] else '')
-    return urlparse.urlunparse((
+    frontend_url = urllib.parse.urlparse(settings['frontend_url'] if settings['frontend_url'] else '')
+    return urllib.parse.urlunparse((
         frontend_url.scheme,
         frontend_url.netloc,
         path,
         '',
-        urllib.urlencode(parameters) if parameters else '',
+        urllib.parse.urlencode(parameters) if parameters else '',
         ''
     ))
 

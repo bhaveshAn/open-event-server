@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 import base64
-from StringIO import StringIO
+from io import StringIO
 
 import qrcode
 from future.utils import python_2_unicode_compatible

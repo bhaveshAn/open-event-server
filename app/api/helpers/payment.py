@@ -1,5 +1,5 @@
-import urlparse
-from urllib import urlencode
+# import urlparse
+from urllib.parse import urlencode
 
 import requests
 import sqlalchemy

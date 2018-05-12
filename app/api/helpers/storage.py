@@ -10,7 +10,7 @@ from boto.s3.key import Key
 from flask_scrypt import generate_password_hash
 from werkzeug.utils import secure_filename
 from flask import current_app as app, request
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 from app.settings import get_settings
 

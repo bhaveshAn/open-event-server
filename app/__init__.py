@@ -211,7 +211,7 @@ def update_sent_state(sender=None, body=None, **kwargs):
 # register celery tasks. removing them will cause the tasks to not function. so don't remove them
 # it is important to register them after celery is defined to resolve circular imports
 
-import api.helpers.tasks
+import app.api.helpers.tasks
 
 # import helpers.tasks
 
@@ -219,7 +219,7 @@ import api.helpers.tasks
 scheduler = BackgroundScheduler(timezone=utc)
 # scheduler.add_job(send_mail_to_expired_orders, 'interval', hours=5)
 # scheduler.add_job(empty_trash, 'cron', hour=5, minute=30)
-if app.config['ENABLE_ELASTICSEARCH']:
+if current_app.config['ENABLE_ELASTICSEARCH']:
     scheduler.add_job(sync_events_elasticsearch, 'interval', minutes=60)
     scheduler.add_job(cron_rebuild_events_elasticsearch, 'cron', day=7)
 
@@ -229,7 +229,7 @@ scheduler.add_job(send_event_fee_notification_followup, 'cron', day=15)
 scheduler.start()
 
 
-@app.errorhandler(500)
+@current_app.errorhandler(500)
 def internal_server_error(error):
     if current_app.config['PROPOGATE_ERROR'] is True:
         exc = JsonApiException({'pointer': ''}, str(error))
