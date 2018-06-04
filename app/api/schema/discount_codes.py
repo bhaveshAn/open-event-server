@@ -77,7 +77,7 @@ class DiscountCodeSchemaEvent(DiscountCodeSchemaPublic):
             if 'tickets_number' not in data:
                 data['tickets_number'] = discount_code.tickets_number
 
-        DiscountCodeSchemaEvent.quantity_validation_helper(data)
+        self.quantity_validation_helper(data)
 
         if 'tickets_number' in data and 'max_quantity' in data:
             if data['tickets_number'] < data['max_quantity']:
@@ -133,7 +133,7 @@ class DiscountCodeSchemaTicket(DiscountCodeSchemaPublic):
             if 'tickets_number' not in data:
                 data['tickets_number'] = discount_code.tickets_number
 
-        DiscountCodeSchemaTicket.quantity_validation_helper(data)
+        self.quantity_validation_helper(data)
 
         if 'tickets_number' in data and 'max_quantity' in data:
             if data['tickets_number'] < data['max_quantity']:
