@@ -26,7 +26,7 @@ before_script:
   - export DATABASE_URL=postgresql://postgres@localhost:5432/test
   - export TEST_DATABASE_URL=postgresql://postgres@localhost:5432/test
   - bash scripts/test_multiple_heads.sh
-  - sudo sed -i 's/max_connections = 500/max_connections = 1500/g' /etc/postgresql/9.6/main/postgresql.conf
+  - sudo sed -i 's/max_connections = 500/max_connections = 1500/g' /etc/postgresql/9.2/main/postgresql.conf
   - sudo service postgresql restart
   - dredd
 script:
