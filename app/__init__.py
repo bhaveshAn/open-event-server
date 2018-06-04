@@ -189,7 +189,7 @@ with current_app.app_context():
     current_app.config['MIGRATION_STATUS'] = check_migrations()
 health.add_check(health_check_migrations)
 current_app.config['SQLALCHEMY_POOL_TIMEOUT'] = 500
-current_app.config['SQLALCHEMY_MAX_OVERFLOW'] = 500
+current_app.config['SQLALCHEMY_MAX_OVERFLOW'] = 1500
 current_app.config['SQLALCHEMY_POOL_RECYCLE'] = 1000
 
 
