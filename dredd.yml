@@ -22,11 +22,11 @@ level: info
 timestamp: false
 silent: false
 path: []
-hooks-worker-timeout: 11000
-hooks-worker-connect-timeout: 5000
-hooks-worker-connect-retry: 500
+hooks-worker-timeout: 15000
+hooks-worker-connect-timeout: 6000
+hooks-worker-connect-retry: 600
 hooks-worker-after-connect-wait: 100
-hooks-worker-term-timeout: 5000
+hooks-worker-term-timeout: 6000
 hooks-worker-term-retry: 500
 hooks-worker-handler-host: 127.0.0.1
 hooks-worker-handler-port: 61321
