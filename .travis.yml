@@ -31,9 +31,9 @@ before_script:
   - bash scripts/test_multiple_heads.sh
   - sudo sed -i 's|max_connections = 100|max_connections = 20|' /etc/postgresql/9.6/main/postgresql.conf
   - sudo service postgresql restart
+  - dredd
 script:
   - nosetests tests/unittests -v --with-coverage
-  - dredd
 after_success:
   - 'bash <(curl -s https://codecov.io/bash)'
   - bash scripts/push_api_docs.sh
