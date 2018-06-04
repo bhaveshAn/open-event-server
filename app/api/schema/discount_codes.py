@@ -131,7 +131,7 @@ class DiscountCodeSchemaTicket(DiscountCodeSchemaPublic):
                 raise UnprocessableEntity({'pointer': '/data/attributes/tickets-number'},
                                           "tickets-number should be greater than max-quantity")
 
-         if 'min_quantity' in data and 'max_quantity' in data:
+        if 'min_quantity' in data and 'max_quantity' in data:
             if data['min_quantity'] >= data['max_quantity']:
                 raise UnprocessableEntity({'pointer': '/data/attributes/min-quantity'},
                                           "min-quantity should be less than max-quantity")
