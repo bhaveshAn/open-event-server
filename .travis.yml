@@ -30,7 +30,7 @@ before_script:
   - export TEST_DATABASE_URL=postgresql://postgres@localhost:5432/test
   - bash scripts/test_multiple_heads.sh
   - sudo sed -i 's/max_connections = 500/max_connections = 700/g' /etc/postgresql/9.6/main/postgresql.conf
-  - sudo sed -i 's/shared_buffers = 500/shared_buffers = 700/g' /etc/postgresql/9.6/main/postgresql.conf
+  - sudo sed -i 's/shared_buffers = 128MB/shared_buffers = 600MB/g' /etc/postgresql/9.6/main/postgresql.conf
   - sudo service postgresql restart
 script:
   - nosetests tests/unittests -v --with-coverage
