@@ -32,6 +32,7 @@ before_script:
   - sudo service postgresql restart
 script:
   - nosetests tests/unittests -v --with-coverage
+  - dredd
 after_success:
   - 'bash <(curl -s https://codecov.io/bash)'
   - bash scripts/push_api_docs.sh
