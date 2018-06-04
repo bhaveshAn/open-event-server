@@ -133,3 +133,5 @@ class TestingConfig(Config):
     BROKER_BACKEND = 'memory'
     SQLALCHEMY_DATABASE_URI = env('TEST_DATABASE_URL', default=None)
     PROPOGATE_ERROR = True
+    SQLALCHEMY_POOL_TIMEOUT = 500
+    SQLALCHEMY_MAX_OVERFLOW = 500
