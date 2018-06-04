@@ -66,16 +66,15 @@ class DiscountCodeSchemaEvent(DiscountCodeSchemaPublic):
             if 'tickets_number' not in data:
                 data['tickets_number'] = discount_code.tickets_number
 
-        if data['min_quantity'] >= data['max_quantity']:
-            raise UnprocessableEntity(
-                {'pointer': '/data/attributes/min-quantity'},
-                "min-quantity should be less than max-quantity"
-            )
-
         if 'tickets_number' in data and 'max_quantity' in data:
             if data['tickets_number'] < data['max_quantity']:
                 raise UnprocessableEntity({'pointer': '/data/attributes/tickets-number'},
                                           "tickets-number should be greater than max-quantity")
+
+        if 'min_quantity' in data and 'max_quantity' in data:
+            if data['min_quantity'] >= data['max_quantity']:
+                raise UnprocessableEntity({'pointer': '/data/attributes/min-quantity'},
+                                          "min-quantity should be less than max-quantity")
 
     @validates_schema(pass_original=True)
     def validate_date(self, data, original_data):
@@ -126,17 +125,16 @@ class DiscountCodeSchemaTicket(DiscountCodeSchemaPublic):
             if 'tickets_number' not in data:
                 data['tickets_number'] = discount_code.tickets_number
 
-        
-        if data['min_quantity'] >= data['max_quantity']:
-            raise UnprocessableEntity(
-                {'pointer': '/data/attributes/min-quantity'},
-                "min-quantity should be less than max-quantity"
-            )
 
         if 'tickets_number' in data and 'max_quantity' in data:
             if data['tickets_number'] < data['max_quantity']:
                 raise UnprocessableEntity({'pointer': '/data/attributes/tickets-number'},
                                           "tickets-number should be greater than max-quantity")
+
+         if 'min_quantity' in data and 'max_quantity' in data:
+            if data['min_quantity'] >= data['max_quantity']:
+                raise UnprocessableEntity({'pointer': '/data/attributes/min-quantity'},
+                                          "min-quantity should be less than max-quantity")
 
     @validates_schema(pass_original=True)
     def validate_date(self, data, original_data):
