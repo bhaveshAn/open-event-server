@@ -1,6 +1,7 @@
 import uuid
-from flask import current_app as app, request
+from flask import url_for, current_app as app, request
 import urllib.parse
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from app.api.helpers.db import get_count
 from app.models import db
@@ -23,7 +24,7 @@ class EventTopic(SoftDeletionModel):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=True)
-    system_image_url = db.Column(db.String)
+    _system_image_url = db.Column(db.String)
     slug = db.Column(db.String, unique=True, nullable=False)
     events = db.relationship('Event', backref='event_topics')
     event_sub_topics = db.relationship('EventSubTopic', backref='event-topic')
@@ -35,9 +36,21 @@ class EventTopic(SoftDeletionModel):
                  deleted_at=None):
 
         self.name = name
-        self.system_image_url = system_image_url
+        self._system_image_url = system_image_url
         self.slug = get_new_slug(name=self.name)
         self.deleted_at = deleted_at
+
+    @hybrid_property
+    def system_image_url(self):
+        """
+        Hybrid property for system image url
+        :return:
+        """
+        if self._system_image_url is None:
+            self._system_image_url = request.url_root + 'static/header.png'
+        else:
+            pass
+        return self._system_image_url
 
     def __repr__(self):
         return '<EventTopic %r>' % self.name
