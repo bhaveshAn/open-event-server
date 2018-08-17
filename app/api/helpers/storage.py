@@ -1,6 +1,7 @@
 import os
 from base64 import b64encode
 from shutil import copyfile, rmtree
+from envparse import env
 
 import boto
 import magic
@@ -15,6 +16,7 @@ from werkzeug.utils import secure_filename
 from app.settings import get_settings
 
 SCHEMES = {80: 'http', 443: 'https'}
+env.read_envfile()
 
 #################
 # STORAGE SCHEMA
@@ -183,7 +185,10 @@ def upload_local(uploaded_file, key, **kwargs):
 def create_url(request_url, file_relative_path):
     """Generates the URL of an uploaded file."""
     url = urlparse(request_url)
-
+    if app.config['SERVER_URL']:
+        url = urlparse(app.config['SERVER_URL'])
+    else:
+        pass
     # No need to specify scheme-corresponding port
     port = url.port
     if port and url.scheme == SCHEMES.get(url.port, None):
